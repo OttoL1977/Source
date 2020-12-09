@@ -1,8 +1,10 @@
+
 import checkNumInputs from './checkNumInputs';
 
-const form = () => {
+const form = (state) => {
     const form = document.querySelectorAll('form'),
-          inputs = document.querySelectorAll('input');
+          inputs = document.querySelectorAll('input'),
+          windows = document.querySelectorAll('[data-modal]');
 
     checkNumInputs('input[name = "user_phone"]');
 
@@ -28,6 +30,19 @@ const form = () => {
         });
     };
 
+    const hideForm = () => {
+        windows.forEach(item => {
+            item.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+    };
+
+    function clearState(obj) {
+        for (const prop of Object.keys(obj)) {
+            delete obj[prop];
+        }
+    }
+
     form.forEach(item => {
         item.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -37,6 +52,12 @@ const form = () => {
             item.appendChild(statusMessage);
 
             const formData = new FormData(item);
+
+            if(item.getAttribute('data-calc') === 'end') {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
 
             postData('assets/server.php', formData)
                 .then(res => {
@@ -50,7 +71,9 @@ const form = () => {
                     clearInputs();
                     setTimeout(() => {
                         statusMessage.remove();
-                    }, 5000);
+                        hideForm();
+                    }, 2000);
+                    clearState(state);
                 });
         });
     });
