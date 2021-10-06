@@ -18,6 +18,7 @@ body {
   color: red;
 }
 
+
 a:hover {
   text-decoration: none;
 }
@@ -110,6 +111,17 @@ textarea:focus {
   margin-bottom: 2rem;
   font-size: 1.1rem;
   color: #666;
+}
+.form_status {
+  display: block;
+  color: red;
+  margin-top: 10px;
+}
+
+.form_status_border {
+  border-color: red;
+  border-style: solid;
+  border-width: 2px;
 }
 
 .button {

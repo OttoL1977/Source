@@ -1,18 +1,19 @@
-import { post } from "jquery";
+import checkNumInputs from "./checkNumInputs";
+import clearState from "./clearState";
 
-const forms = () => {
+const forms = (state) => {
     const form = document.querySelectorAll('form');
     const inputs = document.querySelectorAll('input');
-    const inputsPhone = document.querySelectorAll('input[name="user_phone"]');
 
-    inputsPhone.forEach(item => {
-        item.addEventListener('input', () => {
-            item.value = item.value.replace(/\D/, '');
-        })
-    })
 
-    
+    checkNumInputs('input[name="user_phone"]');
 
+    /*function clearState(obj){
+        for (const prop of Object.keys(obj)) {
+            delete obj[prop];
+        }
+    }*/
+  
     function clearInputs(){
         inputs.forEach(item => {
             item.value = '';
@@ -45,9 +46,15 @@ const forms = () => {
             item.appendChild(statusMessage);
 
             const formData = new FormData(item);
+            if(item.getAttribute('data-calc') == 'end'){
+                for(let key in state){
+                    formData.append(key, state[key]);
+                }
+            }
+
             postData('assets/server.php', formData)
                 .then(res => {
-                    console.log(res);
+                    //console.log(res);
                     statusMessage.textContent = message.success;
                 })
                 .catch(() => statusMessage.textContent = message.failure)
@@ -55,6 +62,9 @@ const forms = () => {
                     clearInputs();
                     setTimeout(() => {
                         statusMessage.remove();
+                        document.querySelector('.popup_calc_end').style.display = 'none';
+                        document.body.style.overflow = '';
+                        clearState(state);
                     }, 4000);
                 })
         })
