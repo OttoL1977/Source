@@ -18,6 +18,21 @@ body {
   color: red;
 }
 
+.faded {
+  animation-name: faded;
+  animation-duration: 2s;
+}
+
+@keyframes faded {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
 a:hover {
   text-decoration: none;
 }
@@ -110,6 +125,17 @@ textarea:focus {
   margin-bottom: 2rem;
   font-size: 1.1rem;
   color: #666;
+}
+.form_status {
+  display: block;
+  color: red;
+  margin-top: 10px;
+}
+
+.form_status_border {
+  border-color: red;
+  border-style: solid;
+  border-width: 2px;
 }
 
 .button {
@@ -584,6 +610,19 @@ textarea:focus {
 .works {
   padding: 5rem 0;
 }
+.works .popup_img {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.works .popup_img img {
+  height: 80%;
+}
 
 .works img {
   margin-bottom: 3rem;
@@ -696,7 +735,10 @@ textarea:focus {
 }
 
 .container1 {
-  display: inline-block;
+  display: flex;
+  justify-content: space-around;
+  padding-left: 30px;
+  padding-right: 30px;
 
 }
 .numbers1 {
@@ -704,7 +746,6 @@ textarea:focus {
   float: left;  
   color: white;
   font-size: 40px;
-  margin-right: 10px;
 }
 
 .timer1 span{
@@ -1802,6 +1843,8 @@ textarea:focus {
   .popup_calc_profile_button {
     padding: 1rem 5rem;
   }
+
+
 }
 
 /* small devices, tablets */
@@ -1816,5 +1859,28 @@ textarea:focus {
     /*css animations*/
     -webkit-animation: none !important;
     animation: none !important;
+  }
+}
+
+@media (max-width: 991px){
+  .timer1 {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 400px){
+  .container1 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .timer1 {
+    width: 292px;
+  }
+  .header .contact_us_wrap .phone_link {
+    font-size: 0.9rem;
+  }
+  .works .popup_img img {
+    width: 85%;
+    height: auto;
   }
 }

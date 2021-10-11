@@ -7,12 +7,6 @@ const forms = (state) => {
 
 
     checkNumInputs('input[name="user_phone"]');
-
-    /*function clearState(obj){
-        for (const prop of Object.keys(obj)) {
-            delete obj[prop];
-        }
-    }*/
   
     function clearInputs(){
         inputs.forEach(item => {
@@ -54,7 +48,6 @@ const forms = (state) => {
 
             postData('assets/server.php', formData)
                 .then(res => {
-                    //console.log(res);
                     statusMessage.textContent = message.success;
                 })
                 .catch(() => statusMessage.textContent = message.failure)
@@ -63,6 +56,8 @@ const forms = (state) => {
                     setTimeout(() => {
                         statusMessage.remove();
                         document.querySelector('.popup_calc_end').style.display = 'none';
+                        document.querySelector('.popup_engineer').style.display = 'none';
+                        document.body.style.marginRight = '0px';
                         document.body.style.overflow = '';
                         clearState(state);
                     }, 4000);
